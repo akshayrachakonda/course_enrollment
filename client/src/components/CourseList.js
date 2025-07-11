@@ -14,6 +14,7 @@ import {
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../config'; // ✅ added
 
 const CourseList = () => {
   const [courses, setCourses] = useState([]);
@@ -31,7 +32,7 @@ const CourseList = () => {
     try {
       setIsLoading(true);
       setError('');
-      const response = await axios.get('http://localhost:5002/api/courses');
+      const response = await axios.get(`${BASE_URL}/courses`); // ✅ updated
       setCourses(response.data);
     } catch (error) {
       console.error('Error fetching courses:', error);
@@ -63,15 +64,15 @@ const CourseList = () => {
 
       const config = {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       };
 
-      await axios.post(`http://localhost:5002/api/enrollments/${courseId}`, {}, config);
+      await axios.post(`${BASE_URL}/enrollments/${courseId}`, {}, config); // ✅ updated
       setSuccessMessage('Successfully enrolled in the course');
       setTimeout(() => {
         setSuccessMessage('');
-        navigate('/my-courses'); // Redirect to My Courses page after successful enrollment
+        navigate('/my-courses');
       }, 2000);
     } catch (error) {
       console.error('Error enrolling:', error);
@@ -80,10 +81,17 @@ const CourseList = () => {
         navigate('/login');
       } else if (error.response?.status === 403) {
         setError('You do not have permission to enroll in courses');
-      } else if (error.response?.status === 400 && error.response.data.message.includes('Already enrolled')) {
+      } else if (
+        error.response?.status === 400 &&
+        error.response.data.message.includes('Already enrolled')
+      ) {
         setError('You are already enrolled in this course');
       } else {
-        setError(error.response?.data?.message || error.message || 'Error enrolling in course');
+        setError(
+          error.response?.data?.message ||
+            error.message ||
+            'Error enrolling in course'
+        );
       }
     } finally {
       setIsLoading(false);
@@ -110,9 +118,7 @@ const CourseList = () => {
           <CircularProgress />
         </Box>
       ) : courses.length === 0 ? (
-        <Alert severity="info">
-          No courses available at the moment.
-        </Alert>
+        <Alert severity="info">No courses available at the moment.</Alert>
       ) : (
         <Grid container spacing={3}>
           {courses.map((course) => (
@@ -169,4 +175,4 @@ const CourseList = () => {
   );
 };
 
-export default CourseList; 
+export default CourseList;

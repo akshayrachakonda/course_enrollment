@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
+import BASE_URL from '../config'; // ✅ Import the base URL
 
 const CreateCourse = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,6 @@ const CreateCourse = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    // Clear error when user starts typing
     setError('');
   };
 
@@ -75,7 +75,6 @@ const CreateCourse = () => {
         return;
       }
 
-      // Get token from localStorage
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found');
@@ -89,12 +88,14 @@ const CreateCourse = () => {
       };
 
       console.log('Creating course with data:', formData);
+
       const courseData = {
         ...formData,
         instructor: user._id
       };
-      const response = await axios.post('http://localhost:5002/api/courses', courseData, config);
-      
+
+      const response = await axios.post(`${BASE_URL}/courses`, courseData, config); // ✅ Updated URL
+
       console.log('Course created successfully:', response.data);
       setSuccess(true);
       setTimeout(() => {
@@ -208,4 +209,4 @@ const CreateCourse = () => {
   );
 };
 
-export default CreateCourse; 
+export default CreateCourse;

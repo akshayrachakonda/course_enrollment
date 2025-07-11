@@ -5,8 +5,6 @@ import {
   Paper,
   Typography,
   Box,
-  Card,
-  CardContent,
   CircularProgress,
   Alert,
 } from '@mui/material';
@@ -18,16 +16,12 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
   ResponsiveContainer,
 } from 'recharts';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../config'; // ✅ Import config
 
 const Analytics = () => {
   const { user } = useAuth();
@@ -48,7 +42,7 @@ const Analytics = () => {
   const fetchAnalytics = async () => {
     try {
       console.log('Fetching analytics data for instructor:', user._id);
-      const response = await axios.get('http://localhost:5002/api/analytics/dashboard', {
+      const response = await axios.get(`${BASE_URL}/analytics/dashboard`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -89,7 +83,6 @@ const Analytics = () => {
     );
   }
 
-  // Convert enrollment trends object to array for the chart
   const enrollmentData = Object.entries(analyticsData.enrollmentTrends).map(([date, count]) => ({
     date,
     enrollments: count
@@ -185,4 +178,4 @@ const Analytics = () => {
   );
 };
 
-export default Analytics; 
+export default Analytics;

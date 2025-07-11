@@ -1,5 +1,15 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, Avatar } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Avatar
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -48,7 +58,8 @@ const Navbar = () => {
         >
           Malla Reddy University
         </Typography>
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+
+        <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
           {user ? (
             <>
               {user.role === 'instructor' && (
@@ -56,61 +67,27 @@ const Navbar = () => {
                   <Button
                     color="inherit"
                     onClick={() => navigate('/create-course')}
-                    sx={{
-                      mr: 2,
-                      '&:hover': {
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                      },
-                    }}
+                    sx={{ mr: 2 }}
                   >
                     Create Course
                   </Button>
                   <Button
                     color="inherit"
                     onClick={() => navigate('/analytics')}
-                    sx={{
-                      mr: 2,
-                      '&:hover': {
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                      },
-                    }}
+                    sx={{ mr: 2 }}
                   >
                     Analytics
-                  </Button>
-                  <Button
-                    color="inherit"
-                    onClick={() => navigate('/profile')}
-                    sx={{
-                      mr: 2,
-                      '&:hover': {
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                      },
-                    }}
-                  >
-                    Profile
                   </Button>
                 </>
               )}
               <Button
                 color="inherit"
                 onClick={() => navigate('/my-courses')}
-                sx={{
-                  mr: 2,
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  },
-                }}
+                sx={{ mr: 2 }}
               >
                 My Courses
               </Button>
-              <IconButton
-                onClick={handleMenu}
-                sx={{
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  },
-                }}
-              >
+              <IconButton onClick={handleMenu}>
                 <Avatar sx={{ width: 32, height: 32, bgcolor: '#1976d2' }}>
                   {user.name ? user.name[0].toUpperCase() : 'U'}
                 </Avatar>
@@ -125,10 +102,10 @@ const Navbar = () => {
                     color: '#fff',
                     '& .MuiMenuItem-root': {
                       '&:hover': {
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                      },
-                    },
-                  },
+                        bgcolor: 'rgba(255, 255, 255, 0.1)'
+                      }
+                    }
+                  }
                 }}
               >
                 <MenuItem onClick={() => { navigate('/profile'); handleClose(); }}>
@@ -142,23 +119,13 @@ const Navbar = () => {
               <Button
                 color="inherit"
                 onClick={() => navigate('/login')}
-                sx={{
-                  mr: 2,
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  },
-                }}
+                sx={{ mr: 2 }}
               >
                 Login
               </Button>
               <Button
                 color="inherit"
                 onClick={() => navigate('/register')}
-                sx={{
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  },
-                }}
               >
                 Register
               </Button>
@@ -170,4 +137,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

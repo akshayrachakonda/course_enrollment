@@ -25,6 +25,8 @@ import WorkIcon from '@mui/icons-material/Work';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://course-enrollment-qs1d.onrender.com';
+
 const Profile = () => {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
@@ -57,20 +59,18 @@ const Profile = () => {
     try {
       setIsLoading(true);
       setError('');
-      console.log('Fetching profile for user:', user._id);
-      
+
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found');
       }
 
-      const response = await axios.get(`http://localhost:5002/api/users/${user._id}`, {
+      const response = await axios.get(`${BASE_URL}/api/users/${user._id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      
-      console.log('Profile data received:', response.data);
+
       setProfile(response.data);
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -90,19 +90,17 @@ const Profile = () => {
 
   const fetchInstructorCourses = async () => {
     try {
-      console.log('Fetching courses for instructor:', user._id);
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found');
       }
 
-      const response = await axios.get(`http://localhost:5002/api/users/${user._id}/courses`, {
+      const response = await axios.get(`${BASE_URL}/api/users/${user._id}/courses`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      
-      console.log('Courses data received:', response.data);
+
       setCourses(response.data);
     } catch (error) {
       console.error('Error fetching instructor courses:', error);
@@ -129,15 +127,14 @@ const Profile = () => {
       setIsLoading(true);
       setError('');
       setSuccess('');
-      
-      console.log('Updating profile with data:', profile);
+
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No authentication token found');
       }
 
       const response = await axios.put(
-        `http://localhost:5002/api/users/${user._id}`,
+        `${BASE_URL}/api/users/${user._id}`,
         profile,
         {
           headers: {
@@ -145,8 +142,7 @@ const Profile = () => {
           }
         }
       );
-      
-      console.log('Profile update response:', response.data);
+
       setSuccess('Profile updated successfully');
       setIsEditing(false);
       await fetchProfile(); // Refresh profile data
@@ -348,4 +344,4 @@ const Profile = () => {
   );
 };
 
-export default Profile; 
+export default Profile;

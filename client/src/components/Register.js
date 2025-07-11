@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {Container, Paper, TextField, Button, Typography, Box, Alert, FormControl, InputLabel, Select, MenuItem, CircularProgress,} from '@mui/material';
+import {
+  Container,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Alert,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  CircularProgress,
+} from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 
 const Register = () => {
@@ -21,7 +34,6 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    // Clear error when user starts typing
     setError('');
   };
 
@@ -63,16 +75,17 @@ const Register = () => {
       console.log('Submitting registration form:', {
         name: formData.name,
         email: formData.email,
-        role: formData.role
+        role: formData.role,
       });
 
+      // Register function must use Render API URL internally in AuthContext
       await register(
         formData.name,
         formData.email,
         formData.password,
         formData.role
       );
-      
+
       console.log('Registration successful');
       navigate('/');
     } catch (error) {
@@ -81,9 +94,15 @@ const Register = () => {
         const missingFields = Object.entries(error.response.data.missing)
           .filter(([_, isMissing]) => isMissing)
           .map(([field]) => field);
-        setError(`Please fill in all required fields: ${missingFields.join(', ')}`);
+        setError(
+          `Please fill in all required fields: ${missingFields.join(', ')}`
+        );
       } else {
-        setError(error.response?.data?.message || error.message || 'Failed to register. Please try again.');
+        setError(
+          error.response?.data?.message ||
+            error.message ||
+            'Failed to register. Please try again.'
+        );
       }
     } finally {
       setIsLoading(false);
@@ -123,7 +142,7 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
-              error={!!error && error.includes('email')}
+              error={!!error && error.toLowerCase().includes('email')}
             />
             <TextField
               fullWidth
@@ -134,7 +153,7 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
-              error={!!error && error.includes('Password')}
+              error={!!error && error.toLowerCase().includes('password')}
               helperText="Password must be at least 6 characters long"
             />
             <TextField
@@ -184,4 +203,4 @@ const Register = () => {
   );
 };
 
-export default Register; 
+export default Register;
