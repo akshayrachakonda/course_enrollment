@@ -1,0 +1,32 @@
+# === Global ===
+node_modules/
+.env
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# === Frontend (client) ===
+client/node_modules/
+client/build/
+client/dist/
+client/.env
+client/.next/
+client/.cache/
+client/.turbo/
+
+# Optional: VSCode settings (if you want to ignore editor config)
+.vscode/
+
+# === Backend (course_enroll) ===
+course_enroll/node_modules/
+course_enroll/.env
+course_enroll/package-lock.json
+course_enroll/coverage/
+course_enroll/scripts/*.log
+
+# Logs
+logs
+*.log
