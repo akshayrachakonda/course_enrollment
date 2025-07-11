@@ -5,7 +5,7 @@ const Enrollment = require('../models/Enrollment');
 const { auth, isInstructor } = require('../middleware/auth');
 
 // Get instructor dashboard analytics
-router.get('/dashboard', auth, isInstructor, async (req, res) => {
+router.get('/api/dashboard', auth, isInstructor, async (req, res) => {
   try {
     // Get instructor's courses
     const courses = await Course.find({ instructor: req.user._id })
