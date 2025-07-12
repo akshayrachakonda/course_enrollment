@@ -94,7 +94,7 @@ const CreateCourse = () => {
         instructor: user._id
       };
 
-      const response = await axios.post(`${BASE_URL}/courses`, courseData, config); // ✅ Updated URL
+      const response = await axios.post(`${BASE_URL}/api/courses`, courseData, config); // ✅ Updated URL
 
       console.log('Course created successfully:', response.data);
       setSuccess(true);
