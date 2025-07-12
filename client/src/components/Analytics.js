@@ -42,7 +42,7 @@ const Analytics = () => {
   const fetchAnalytics = async () => {
     try {
       console.log('Fetching analytics data for instructor:', user._id);
-      const response = await axios.get(`${BASE_URL}/analytics/dashboard`, {
+      const response = await axios.get(`${BASE_URL}/api/analytics/dashboard`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
