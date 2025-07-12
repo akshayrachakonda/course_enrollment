@@ -72,9 +72,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Register handler
+  const BASE_URL = import.meta.env.REACT_APP_API_URL ;
   const register = async (name, email, password, role) => {
     try {
-      const response = await axios.post('http://localhost:5002/api/auth/register', {
+      const response = await axios.post(`${BASE_URL}/api/auth/register`, {
         name,
         email,
         password,
