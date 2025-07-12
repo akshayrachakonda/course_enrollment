@@ -68,7 +68,7 @@ const CourseList = () => {
         },
       };
 
-      await axios.post(`${BASE_URL}/enrollments/${courseId}`, {}, config); // ✅ updated
+      await axios.post(`${BASE_URL}/api/enrollments/${courseId}`, {}, config); // ✅ updated
       setSuccessMessage('Successfully enrolled in the course');
       setTimeout(() => {
         setSuccessMessage('');
