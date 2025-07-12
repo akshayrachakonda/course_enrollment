@@ -32,7 +32,7 @@ const CourseList = () => {
     try {
       setIsLoading(true);
       setError('');
-      const response = await axios.get(`${BASE_URL}/courses`); // ✅ updated
+      const response = await axios.get(`${BASE_URL}/api/courses`); // ✅ updated
       setCourses(response.data);
     } catch (error) {
       console.error('Error fetching courses:', error);
