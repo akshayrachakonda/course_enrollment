@@ -2,7 +2,7 @@
 
 const BASE_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://course-enrollment-qs1d.onrender.com'
+    ? 'https://course-enrollment-qs1d.onrender.com/api'
     : 'http://localhost:5002';
 
 export default BASE_URL;
