@@ -60,7 +60,7 @@ const Analytics = () => {
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="59vh">
           <CircularProgress />
         </Box>
       </Container>
