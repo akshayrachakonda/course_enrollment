@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
   Paper,
@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
   CircularProgress,
+  Divider,
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -197,6 +198,21 @@ const Register = () => {
               )}
             </Button>
           </form>
+          <Divider sx={{ my: 3 }} />
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="body1" gutterBottom>
+              Already have an account?
+            </Typography>
+            <Button
+              component={Link}
+              to="/login"
+              variant="outlined"
+              color="primary"
+              fullWidth
+            >
+              Login
+            </Button>
+          </Box>
         </Paper>
       </Box>
     </Container>
